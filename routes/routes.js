@@ -8,12 +8,14 @@ module.exports = function(app, path, db, request, cheerio) {
         let insertObject = req.body;
         collection = db.collection(req.body.topic);
         let queryString = 'https://twitter.com/search?q=' + insertObject.topic + '&src=typd&lang=ru';
-        let authors = [];
-        let tweets = [];
+        
         request(queryString, (err, res, body) => {
             if (err) throw err;
 
             let $ = cheerio.load(body);
+
+            let authors = [];
+            let tweets = [];
             
             $('div.content>div.stream-item-header>a').each(function(i) {
                 authors[i] = $(this).text();
@@ -21,19 +23,21 @@ module.exports = function(app, path, db, request, cheerio) {
             $('div.content>div.js-tweet-text-container>p').each(function(i) {
                 tweets[i] = $(this).text();
             });
+            console.log(authors);
+            console.log(tweets);
+
+            /*for (let i = 0; i < authors.length; i++) {
+                insertObject.author = authors[i];
+                insertObject.text = tweets[i];
+                insertObject.sentiment = '0';
+                collection.insertOne(insertObject, (err, result) => {
+                    if (err) throw err;
+                });
+                console.log(insertObject);
+            }*/
             
         });
         
-        for (let i = 0; i < authors.length; i++) {
-            insertObject.author = authors[i];
-            insertObject.text = tweets[i];
-            insertObject.sentiment = '0';
-            collection.insertOne(insertObject, (err, result) => {
-                if (err) throw err;
-            });
-            console.log(insertObject);
-        }
-
         res.json(req.body);
     });
 
