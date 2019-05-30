@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+        <title>twitterapi</title>
+        <link rel="stylesheet" href="/styles/style.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+        <script async src="/scripts/script.js"></script>
+    </head>
+
+    <body>
+        <div id='tweetsDiv'>
+            <form id="tweetsForm">
+                <fieldset>
+                    <legend>Введите тему:</legend>
+                    <label for="topicNameID">Тема:</label>
+                    <input type="text" name="topicName" id="topicNameID"><br>
+                    <input type="submit" value="Отправить" id="tweetsFormBtn">
+                </fieldset>
+            </form>
+        </div>
+
+        <div id='chartDiv'>
+            <form id="chartForm">
+                <fieldset>
+                    <legend>Получить результат:</legend>
+                    <label for="chartTopicNameID">Тема:</label>
+                    <input type="text" name="chartTopicName" id="chartTopicNameID"><br>
+                    <input type="submit" value="Построить график" id="chartFormBtn">
+                </fieldset>
+            </form>
+        </div>
+        
+        <div id="canvasDiv">
+            <canvas id="tweetChart" width="600" height="400"></canvas>
+        </div>
+    </body>
+</html>
